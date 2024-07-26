@@ -62,10 +62,9 @@ class SectorController extends Controller
         $sector->delete();
 
         $response = [
-            'success' => true,
-            'message' => 'Sector deleted successfully', 
+            'message' => " Sector $sector deleted successfully", 
         ];
 
-        return $response + response()->json(null, 204);
+        return response()->json($response, 204);
     }
 }
