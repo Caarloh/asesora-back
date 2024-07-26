@@ -15,32 +15,31 @@ class JsonResponseMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-         // Procesa la solicitud y obtiene la respuesta
-         $response = $next($request);
+        // Procesa la solicitud y obtiene la respuesta
+        $response = $next($request);
 
-         // Solo modificar respuestas JSON
-         if ($response instanceof Response && $request->expectsJson()) {
-             $originalContent = $response->getContent();
-             $data = json_decode($originalContent, true);
-            
-             print_r("holi jehe");
-             // Estructura de respuesta estándar
-             $formattedResponse = [
-                 'success' => $response->isSuccessful(),
-                 'data' => $data,
-                 'message' => $response->isSuccessful() ? 'Request was successful' : $response->getStatusCode(),
-                 'status' => $response->getStatusCode(),
-             ];
- 
-             // Si es un error, incluye el mensaje del error
-             if (!$response->isSuccessful() && isset($data['message'])) {
-                 $formattedResponse['message'] = $data['message'];
-             }
- 
-             // Establecer la nueva estructura de respuesta
-             $response->setContent(json_encode($formattedResponse));
-         }
- 
-         return $response;
+        // Solo modificar respuestas JSON
+        $originalContent = $response->getContent();
+        $contentJson = json_decode($originalContent, true);
+
+        print_r("holi jehe");
+        // Estructura de respuesta estándar
+        $formattedResponse = [
+            'success' => $response->isSuccessful(),
+            'data' => $contentJson,
+            'message' => $response->isSuccessful() ? 'Request was successful' : $response->getStatusCode(),
+            'status' => $response->getStatusCode(),
+        ];
+
+        // Si es un error, incluye el mensaje del error
+        if (!$response->isSuccessful() && isset($contentJson['message'])) {
+            $formattedResponse['message'] = $contentJson['message'];
+        }
+
+        // Establecer la nueva estructura de respuesta
+        $response->setContent(json_encode($formattedResponse));
+
+
+        return $response;
     }
 }
