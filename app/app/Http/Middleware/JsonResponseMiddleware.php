@@ -21,8 +21,6 @@ class JsonResponseMiddleware
         // Solo modificar respuestas JSON
         $originalContent = $response->getContent();
         $contentJson = json_decode($originalContent, true);
-
-        print_r("holi jehe");
         // Estructura de respuesta estándar
         $formattedResponse = [
             'success' => $response->isSuccessful(),
