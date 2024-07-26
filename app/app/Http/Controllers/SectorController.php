@@ -12,13 +12,7 @@ class SectorController extends Controller
      */
     public function index()
     {
-        $inicio = microtime(true);
-
         $response = Sector::all();
-
-        $fin = microtime(true);
-
-        print_r("Tiempo de ejecución: " . ($fin - $inicio) . " segundos");
         return $response;
     }
 
