@@ -36,7 +36,7 @@ class JsonResponseMiddleware
 
         // Establecer la nueva estructura de respuesta
         $response->setContent(json_encode($formattedResponse));
-
+        $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
