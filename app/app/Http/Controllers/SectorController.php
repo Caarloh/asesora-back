@@ -26,7 +26,9 @@ class SectorController extends Controller
             'vigencia' => 'required|boolean',
         ]);
 
-        return Sector::create($request->all());
+        $sectorCreated = Sector::create($request->all());
+
+        return $sectorCreated;
     }
 
     /**
@@ -59,6 +61,11 @@ class SectorController extends Controller
     {
         $sector->delete();
 
-        return response()->json(null, 204);
+        $response = [
+            'success' => true,
+            'message' => 'Sector deleted successfully', 
+        ];
+
+        return $response + response()->json(null, 204);
     }
 }

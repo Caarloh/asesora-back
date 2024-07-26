@@ -17,5 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(JsonResponseMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+
         //
     })->create();
