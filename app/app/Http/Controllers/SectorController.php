@@ -21,11 +21,12 @@ class SectorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $error = $request->validate([
             'nombre' => 'required|max:30',
             'vigencia' => 'required|boolean',
         ]);
 
+        print_r($error);
         $sectorCreated = Sector::create($request->all());
 
         return $sectorCreated;
